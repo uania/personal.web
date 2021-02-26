@@ -11,9 +11,9 @@ namespace yx._007
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            return CreateHostBuilder(args).Build().RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
