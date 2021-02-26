@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using yx._321.MessageWriter;
 
 namespace yx._007.Controllers
 {
@@ -16,18 +15,18 @@ namespace yx._007.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IMessageWriter _messgeWriter;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IMessageWriter messgeWriter)
         {
-            _logger = logger;
+            _messgeWriter = messgeWriter;
         }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            _logger.LogInformation("你说什么");
-            _logger.LogDebug("这事debug");
+            _messgeWriter.Info("你说什么");
+            _messgeWriter.Debug("这事debug");
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

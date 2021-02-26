@@ -5,7 +5,7 @@ namespace yx._321.MessageWriter
     {
         private ILogger _logger;
 
-        public DefaultAchieve(ILogger logger)
+        public DefaultAchieve(ILogger<DefaultAchieve> logger)
         {
             _logger = logger;
         }
