@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using yx._321.MessageWriter;
+using yx._321.Models;
 
 namespace yx._007
 {
@@ -21,12 +22,17 @@ namespace yx._007
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IMessageWriter, DefaultAchieve>();
+            using(var module = new yx._321.Module())
+            {
+                module.Init(services);
+            }
+            
+            
             services.AddControllers();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => Configuration.Bind("JwtSettings", options));
-
+                        services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "yx._007", Version = "v1" });
